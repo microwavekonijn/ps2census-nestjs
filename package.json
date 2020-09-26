@@ -2,9 +2,20 @@
   "name": "ps2census-nestjs",
   "version": "0.1.0",
   "description": "PS2Census integration for NestJS",
-  "main": "dist/index.js",
+  "main": "dist",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "exit"
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "test": "exit",
+    "prepare": "npm run build",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -14,7 +25,9 @@
     "ps2census",
     "nestjs",
     "nest",
-    "typescript"
+    "typescript",
+    "planetside",
+    "census"
   ],
   "author": "Microwavekonijn",
   "license": "Apache-2.0",

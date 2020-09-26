@@ -8,7 +8,7 @@ export class OnResolver implements CensusResolver {
         const metadata: OnDecoratorOptions = Reflect.getMetadata(ON_DECORATOR, instance, methodName);
 
         if (metadata) {
-            censusClient.on(metadata.name, (...data) => {
+            censusClient.on(metadata.event, (...data) => {
                 void instance[methodName](...data);
             });
         }
