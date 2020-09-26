@@ -1,5 +1,9 @@
 # PS2Census NestJS
 
+![CI](https://github.com/microwavekonijn/ps2census-nestjs/workflows/CI/badge.svg)
+[![npm version](https://badge.fury.io/js/ps2census-nestjs.svg)](https://www.npmjs.com/package/ps2census-nestjs)
+[![David DM Badge](https://david-dm.org/microwavekonijn/ps2census-nestjs.svg)](https://david-dm.org/microwavekonijn/ps2census-nestjs)
+
 ## About
 
 Easy integration of the [PS2 Census library](https://github.com/microwavekonijn/ps2census) for NestJS.
