@@ -1,6 +1,6 @@
 {
   "name": "ps2census-nestjs",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "PS2Census integration for NestJS",
   "main": "dist/index.js",
   "scripts": {
