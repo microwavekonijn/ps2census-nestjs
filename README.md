@@ -17,6 +17,8 @@ npm install ps2census ps2census-nestjs
 ## Getting started
 
 ```ts
+import {CensusModule} from 'ps2census-nestjs';
+
 @Module({
   imports:[
     CensusModule.forRoot({
@@ -38,6 +40,7 @@ npm install ps2census ps2census-nestjs
 ```ts
 import { Injectable } from '@nestjs/common';
 import {Death} from 'ps2census';
+import {CensusClient} from 'ps2census-nestjs';
 
 @Injectable() // Controller decorator can also be used
 export class CensusGateway {
