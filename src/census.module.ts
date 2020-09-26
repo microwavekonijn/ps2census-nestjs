@@ -5,6 +5,7 @@ import { CensusModuleOptions } from './interfaces/censusmodule.options';
 import { CensusModuleAsyncOptions } from './interfaces/censusmoduleasync.options';
 import { CensusService } from './census.service';
 import { CENSUS_MODULE_OPTIONS } from './constants/census.constants';
+import { OnResolver } from './resolvers/on.resolver';
 
 @Module({
     imports: [DiscoveryModule],
@@ -14,6 +15,7 @@ export class CensusModule {
         return {
             module: CensusModule,
             providers: [
+                OnResolver,
                 CensusService,
                 ...CensusModule.createCensusProvider(options),
             ],
@@ -32,6 +34,7 @@ export class CensusModule {
             module: CensusModule,
             imports: options.imports || [],
             providers: [
+                OnResolver,
                 CensusService,
                 CensusModule.createConfigASyncProviders(options),
                 connectionProvider,

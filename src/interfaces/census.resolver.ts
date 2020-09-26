@@ -1,5 +1,5 @@
 import { CensusResolveOptions } from './censusresolve.options';
 
-export interface CensusResolve {
+export interface CensusResolver {
     resolve(options: CensusResolveOptions): void;
 }
