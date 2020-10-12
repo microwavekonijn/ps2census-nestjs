@@ -6,6 +6,7 @@ import { CensusModuleAsyncOptions } from './interfaces/censusmoduleasync.options
 import { CensusService } from './census.service';
 import { CENSUS_MODULE_OPTIONS } from './constants/census.constants';
 import { OnResolver } from './resolvers/on.resolver';
+import { CensusOptionsFactory } from './interfaces/censusoptions.factory';
 
 @Module({
     imports: [DiscoveryModule],
@@ -17,59 +18,51 @@ export class CensusModule {
             providers: [
                 OnResolver,
                 CensusService,
-                ...CensusModule.createCensusProvider(options),
+                {
+                    provide: CENSUS_MODULE_OPTIONS,
+                    useValue: options || {},
+                },
+                {
+                    provide: CensusClient,
+                    useValue: new CensusClient(options.serviceID, options),
+                },
             ],
             exports: [CensusClient],
         };
     }
 
     static forRootAsync(options: CensusModuleAsyncOptions): DynamicModule {
-        const connectionProvider = {
-            provide: CensusClient,
-            useFactory: async (options: CensusModuleOptions): Promise<CensusClient> => new CensusClient(options.serviceID, options),
-            inject: [],
-        };
-
         return {
             module: CensusModule,
             imports: options.imports || [],
             providers: [
                 OnResolver,
                 CensusService,
-                CensusModule.createConfigASyncProviders(options),
-                connectionProvider,
+                CensusModule.createConfigAsyncProviders(options),
+                {
+                    provide: CensusClient,
+                    useFactory: async (options: CensusModuleOptions): Promise<CensusClient> => new CensusClient(options.serviceID, options),
+                    inject: [CENSUS_MODULE_OPTIONS],
+                },
             ],
             exports: [CensusClient],
         };
     }
 
-    private static createCensusProvider(options: CensusModuleOptions): Provider[] {
-        return [
-            {
-                provide: CENSUS_MODULE_OPTIONS,
-                useValue: options || {},
-            },
-            {
-                provide: CensusClient,
-                useValue: new CensusClient(options.serviceID, options),
-            },
-        ];
-    }
-
-    private static createConfigASyncProviders(options: CensusModuleAsyncOptions): Provider {
+    private static createConfigAsyncProviders(options: CensusModuleAsyncOptions): Provider {
         if (options) {
             if (options.useFactory) {
                 return {
                     provide: CENSUS_MODULE_OPTIONS,
                     useFactory: options.useFactory,
-                    inject: options.inject || [],
+                    inject: options.inject ?? [],
                 };
             }
 
             return {
                 provide: CENSUS_MODULE_OPTIONS,
-                useFactory: async (optionsFactory: any): Promise<CensusModuleOptions> => await optionsFactory.createCensusOptions(),
-                inject: [options.useExisting || options.useClass],
+                useFactory: async (factory: CensusOptionsFactory): Promise<CensusModuleOptions> => await factory.createCensusOptions(),
+                inject: [options.useExisting ?? options.useClass],
             };
         }
 
