@@ -6,6 +6,7 @@ import { CensusModuleAsyncOptions } from './interfaces/censusmoduleasync.options
 import { CENSUS_MODULE_OPTIONS } from './census.constants';
 import { CensusOptionsFactory } from './interfaces/censusoptions.factory';
 import { CensusExplorer } from './census.explorer';
+import { MetadataAccessor } from './helpers/metadata.accessor';
 
 @Module({
     imports: [DiscoveryModule],
@@ -15,6 +16,7 @@ export class CensusModule {
         return {
             module: CensusModule,
             providers: [
+                MetadataAccessor,
                 CensusExplorer,
                 {
                     provide: CENSUS_MODULE_OPTIONS,
@@ -34,6 +36,7 @@ export class CensusModule {
             module: CensusModule,
             imports: options.imports || [],
             providers: [
+                MetadataAccessor,
                 CensusExplorer,
                 CensusModule.createConfigAsyncProviders(options),
                 {
