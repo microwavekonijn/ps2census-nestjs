@@ -45,7 +45,7 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-import": "^2.22.1",
     "prettier": "^2.1.2",
-    "ps2census": "^1.0.1",
+    "ps2census": "^2.0.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
