@@ -3,10 +3,9 @@ import { DiscoveryModule } from '@nestjs/core';
 import { CensusClient } from './census.client';
 import { CensusModuleOptions } from './interfaces/censusmodule.options';
 import { CensusModuleAsyncOptions } from './interfaces/censusmoduleasync.options';
-import { CensusService } from './census.service';
-import { CENSUS_MODULE_OPTIONS } from './constants/census.constants';
-import { OnResolver } from './resolvers/on.resolver';
+import { CENSUS_MODULE_OPTIONS } from './census.constants';
 import { CensusOptionsFactory } from './interfaces/censusoptions.factory';
+import { CensusExplorer } from './census.explorer';
 
 @Module({
     imports: [DiscoveryModule],
@@ -16,8 +15,7 @@ export class CensusModule {
         return {
             module: CensusModule,
             providers: [
-                OnResolver,
-                CensusService,
+                CensusExplorer,
                 {
                     provide: CENSUS_MODULE_OPTIONS,
                     useValue: options || {},
@@ -36,8 +34,7 @@ export class CensusModule {
             module: CensusModule,
             imports: options.imports || [],
             providers: [
-                OnResolver,
-                CensusService,
+                CensusExplorer,
                 CensusModule.createConfigAsyncProviders(options),
                 {
                     provide: CensusClient,

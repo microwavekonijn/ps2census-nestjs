@@ -1,4 +1,4 @@
-import { ON_DECORATOR } from '../constants/census.constants';
+import { ON_DECORATOR } from '../census.constants';
 import { OnDecoratorOptions } from './interfaces/ondecorator.options';
 import { ClientEvents } from 'ps2census';
 
